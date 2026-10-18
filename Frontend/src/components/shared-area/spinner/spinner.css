@@ -1,0 +1,37 @@
+/* A token-colored ring drawn in CSS replaces the GIF: it matches the
+   palette and stays sharp at any size. */
+.Spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-block: var(--space-6);
+}
+
+.Spinner img {
+    display: none;
+}
+
+.Spinner::before {
+    content: "";
+    width: var(--icon-lg);
+    height: var(--icon-lg);
+    border: 2px solid var(--color-border);
+    border-top-color: var(--color-accent);
+    border-radius: var(--radius-full);
+    animation: Spinner-rotate var(--duration-spin) linear infinite;
+}
+
+@keyframes Spinner-rotate {
+    to { transform: rotate(360deg); }
+}
+
+/* No spinning under reduced motion; a slow fade still shows it is working. */
+@media (prefers-reduced-motion: reduce) {
+    .Spinner::before {
+        animation: Spinner-pulse calc(var(--duration-spin) * 2) ease-in-out infinite;
+    }
+}
+
+@keyframes Spinner-pulse {
+    50% { opacity: 0.35; }
+}

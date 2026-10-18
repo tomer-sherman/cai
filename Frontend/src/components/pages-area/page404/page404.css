@@ -1,0 +1,24 @@
+.Page404 {
+    padding-block: var(--space-8);
+    text-align: center;
+}
+
+/* Stand-in copy while the component renders nothing. :empty stops
+   matching as soon as real markup is added, so this retires itself. */
+.Page404:empty::before {
+    content: "404";
+    display: block;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-wide);
+}
+
+.Page404:empty::after {
+    content: "Page not found";
+    display: block;
+    margin-top: var(--space-2);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+}

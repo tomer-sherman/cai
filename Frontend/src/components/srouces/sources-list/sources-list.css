@@ -1,0 +1,58 @@
+/* The list owns how its children stack: rows (.source-row, each wrapping a
+   SourceCard) join into one bordered group, then the add button, the form
+   and the spinner follow. A row sliding out ([inert]) no longer counts as
+   first/last, so its neighbours round their corners straight away. */
+.SourcesList {
+    display: flex;
+    flex-direction: column;
+}
+
+.SourcesList .source-row .SourceCard {
+    border-radius: 0;
+}
+
+.SourcesList > .source-row:not([inert]) ~ .source-row .SourceCard {
+    border-top-width: 0;
+}
+
+.SourcesList > :nth-child(1 of .source-row:not([inert])) .SourceCard {
+    border-top-left-radius: var(--radius-lg);
+    border-top-right-radius: var(--radius-lg);
+}
+
+.SourcesList > :nth-last-child(1 of .source-row:not([inert])) .SourceCard {
+    border-bottom-left-radius: var(--radius-lg);
+    border-bottom-right-radius: var(--radius-lg);
+}
+
+/* Empty state: no cards and not loading. */
+.SourcesList:not(:has(.SourceCard, .Spinner))::before {
+    content: "No sources yet. Add one to start collecting data.";
+    padding: var(--space-6) var(--space-4);
+    border: 1px dashed var(--color-border-strong);
+    border-radius: var(--radius-lg);
+    color: var(--color-text-muted);
+    text-align: center;
+}
+
+/* "Add Source": the page's primary action. */
+.SourcesList > button {
+    --btn-bg: var(--color-accent);
+    --btn-bg-hover: var(--color-accent-hover);
+    --btn-bg-active: var(--color-accent-active);
+    --btn-fg: var(--color-on-fill);
+    --btn-border: transparent;
+
+    align-self: flex-start;
+    margin-top: var(--space-4);
+}
+
+/* Margin on the form, not the wrapper, so the gap collapses with it. */
+.SourcesList > .add-form .AddSourceForm {
+    margin-top: var(--space-3);
+}
+
+/* The spinner renders last in the markup; show it where the cards will appear. */
+.SourcesList > .Spinner {
+    order: -1;
+}

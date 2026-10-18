@@ -1,0 +1,26 @@
+.Home {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.Home > h1 {
+    max-width: var(--measure);
+    margin-bottom: var(--space-2);
+    font-size: var(--text-xl);
+}
+
+.Home > p {
+    max-width: var(--measure);
+    color: var(--color-text-muted);
+}
+
+.Home > .SourcesList {
+    margin-top: var(--space-6);
+}
+
+@media (min-width: 40rem) {
+    .Home > h1 {
+        font-size: var(--text-2xl);
+    }
+}

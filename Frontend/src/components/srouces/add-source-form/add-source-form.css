@@ -1,0 +1,97 @@
+/* The form's children are flat siblings (label, input, error, ...), so each
+   one is placed into a named grid area. Phone: one column. Wider: one row. */
+.AddSourceForm {
+    padding: var(--space-4);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.AddSourceForm form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+        "name-label"
+        "name-input"
+        "name-error"
+        "url-label"
+        "url-input"
+        "url-error"
+        "submit";
+    row-gap: var(--space-1);
+}
+
+.AddSourceForm label:nth-of-type(1) { grid-area: name-label; }
+.AddSourceForm input:nth-of-type(1) { grid-area: name-input; }
+.AddSourceForm input:nth-of-type(1) + .errors { grid-area: name-error; }
+
+.AddSourceForm label:nth-of-type(2) {
+    grid-area: url-label;
+    margin-top: var(--space-3);
+}
+
+.AddSourceForm input:nth-of-type(2) {
+    grid-area: url-input;
+    font-family: var(--font-mono);
+}
+
+.AddSourceForm input:nth-of-type(2) + .errors { grid-area: url-error; }
+
+.AddSourceForm button {
+    --btn-bg: var(--color-accent);
+    --btn-bg-hover: var(--color-accent-hover);
+    --btn-bg-active: var(--color-accent-active);
+    --btn-fg: var(--color-on-fill);
+    --btn-border: transparent;
+
+    grid-area: submit;
+    justify-self: start;
+    margin-top: var(--space-3);
+}
+
+/* Invalid field: react-hook-form renders .errors right after the input. */
+.AddSourceForm input:has(+ .errors) {
+    border-color: var(--color-negative);
+    outline-color: var(--color-negative);
+}
+
+.AddSourceForm .errors {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    color: var(--color-negative);
+    font-size: var(--text-sm);
+}
+
+.AddSourceForm .errors::before {
+    content: "!";
+    content: "!" / "";
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: var(--icon-sm);
+    height: var(--icon-sm);
+    border-radius: var(--radius-full);
+    background: var(--color-negative);
+    color: var(--color-on-fill);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    line-height: 1;
+}
+
+@media (min-width: 40rem) {
+    .AddSourceForm form {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) auto;
+        grid-template-areas:
+            "name-label url-label ."
+            "name-input url-input submit"
+            "name-error url-error .";
+        column-gap: var(--space-3);
+    }
+
+    .AddSourceForm label:nth-of-type(2),
+    .AddSourceForm button {
+        margin-top: 0;
+    }
+}

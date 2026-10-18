@@ -1,0 +1,48 @@
+/* App shell: a full-width top band (brand row + tab row), one centered
+   content column, and a footer. The band is drawn by ::before so the
+   header and nav markup can stay as-is. */
+.Layout {
+    display: grid;
+    grid-template-columns:
+        [full-start] minmax(var(--page-gutter), 1fr)
+        [content-start] minmax(0, var(--page-max))
+        [content-end] minmax(var(--page-gutter), 1fr)
+        [full-end];
+    grid-template-rows: auto auto 1fr auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+.Layout::before {
+    content: "";
+    grid-column: full;
+    grid-row: 1 / 3;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.Layout > header {
+    grid-column: content;
+    grid-row: 1;
+    padding-block: var(--space-4) var(--space-2);
+}
+
+.Layout > nav {
+    grid-column: content;
+    grid-row: 2;
+    min-width: 0;
+}
+
+.Layout > main {
+    grid-column: content;
+    grid-row: 3;
+    min-width: 0;
+    padding-block: var(--space-6) var(--space-8);
+}
+
+.Layout > footer {
+    grid-column: content;
+    grid-row: 4;
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--color-border);
+}

@@ -1,0 +1,17 @@
+/* Brand wordmark with a small accent mark. */
+.Header h1 {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-tight);
+}
+
+.Header h1::before {
+    content: "";
+    width: var(--space-3);
+    height: var(--space-3);
+    border-radius: var(--radius-sm);
+    background: var(--color-accent);
+}
