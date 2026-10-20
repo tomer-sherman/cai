@@ -51,6 +51,16 @@ class SourceService {
 
     }
 
+    public async getUrlsArr(): Promise<string[]> {
+        const sources = await this.getAllSources();
+
+        const urls = sources.map(s => s.url);
+        console.log(urls)
+
+        return urls;
+
+    }
+
 
 
 

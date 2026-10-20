@@ -16,6 +16,13 @@ class AppConfig {
 
     //Ngrok url
     public readonly ngrokUrl = process.env.NGROK_URL!;
+
+    //Jina Url
+    public readonly jinaUrl = "https://r.jina.ai/"
+    public readonly jinaApiKey = process.env.JINA_API_KEY!;
+
+
+    public readonly openaiUrl = "https://api.openai.com/v1/chat/completions";
 }
 
 export const appConfig = new AppConfig();
