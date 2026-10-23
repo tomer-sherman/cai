@@ -7,6 +7,7 @@ import { securityMiddleware } from "./middleware/security-middleware";
 import { appConfig } from "./utils/app-config";
 import mongoose from "mongoose";
 import { aiController } from "./controllers/ai-controller";
+import { summeryController } from "./controllers/summery-controller";
 
 class App {
 
@@ -32,6 +33,7 @@ class App {
         // Register controllers:
         server.use(sourcesController.router);
         server.use(aiController.router)
+        server.use(summeryController.router);
 
         // Register "after" middleware:
         server.use(errorMiddleware.routeNotFound);

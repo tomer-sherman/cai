@@ -1,11 +1,14 @@
+import { ClientError } from "../models/client-error";
 import { Article, Headlines } from "../models/jina-models";
+import { ISummeryModel, SummeryModel } from "../models/summery-model";
 import { promptHolder } from "../utils/pompt-holder";
 import { gptService } from "./gpt-service";
 import { jinaService } from "./jina-service";
+import { summeryService } from "./summery-service";
 
 class AiService {
 
-    public async getAiSummery(links: string[]): Promise<string> {
+    public async getAiSummery(links: string[]): Promise<ISummeryModel> {
 
         // Activate jina to fetch the urlArr
         const jinaHeadlinesResponse = await jinaService.getHeadlinesAndUrls(links);
@@ -41,7 +44,9 @@ class AiService {
         //return the summery
         console.log(summery);
 
-        return summery;
+        const dbSummery = await summeryService.saveSummery(new SummeryModel({ summery }));
+
+        return dbSummery;
     }
 
     private async decideArticles(jinaHeadlinesString: string): Promise<number[]> {
@@ -56,13 +61,11 @@ class AiService {
     private async aiSummery(jinaArticleResponse: Article[]): Promise<string> {
 
         const userPrompt = promptHolder.buildSummarizeUserPrompt(jinaArticleResponse);
-        const summery = await gptService.getCompletion(promptHolder.summarizeSystemPrompt, userPrompt, "gpt-5");
+        const summery = await gptService.getCompletion(promptHolder.summarizeSystemPrompt, userPrompt, "gpt-4o-mini");
 
         return summery;
 
     }
-
-
 
 
 }

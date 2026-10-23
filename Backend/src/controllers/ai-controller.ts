@@ -21,8 +21,8 @@ class AiController {
     private async getAiSummery(request: Request, response: Response): Promise<void> {
 
         const urls = await sourceService.getUrlsArr();
-        const dbSource = await aiSerive.getAiSummery(urls);
-        response.json(dbSource);
+        const summery = await aiSerive.getAiSummery(urls);
+        response.status(StatusCode.Created).json(summery);
     }
 
 
